@@ -1,12 +1,19 @@
 const http = require('http');
+const fs = require('fs');
 
 const server = http.createServer((req,res) => {
-   res.setHeader('Content-type','text/html');
-   res.write('<h1> HELLO WORLD </h1>')
+  res.setHeader('Content-type','text/html');
 
-   res.end();
+  fs.readFile('./views/home.html', (err,data) =>{
+    if (err) {
+        console.log(err);
+        res.end();
+    }
+    res.write(data);
+    res.end();
+  })
 })
 
-server.listen('3000','localhost',() =>{
+server.listen('3000','localhost', () =>{
     console.log('server is listening on port 3000');
 })
