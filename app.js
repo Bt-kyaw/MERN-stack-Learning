@@ -1,8 +1,13 @@
 const express = require('express')
+let morgan = require('morgan')
+
 const app = express()
+//db url
+let mongoUrl ="mongodb+srv://bhonethantkyaw:810810@cluster0.pwyv0l2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
 app.set('views', './views')
 app.set('view engine', 'ejs')
-let morgan = require('morgan')
+
 
 app.use(morgan('dev'))
 app.use(express.static('public'))
