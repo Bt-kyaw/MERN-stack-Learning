@@ -3,8 +3,18 @@ const app = express()
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
+
+
 app.get('/', (req,res) => {
-    res.render('home')
+
+    let blogs =[
+        { title : 'Blog title 1 update', intro : 'This is blog intro1.'},
+        { title : 'Blog title 2', intro : 'This is blog intro2.'},
+        { title : 'Blog title 3', intro : 'This is blog intro3.'}
+    ]
+    res.render('home',{
+        blogs
+    })
 })
 
 app.get('/about', (req,res) => {
