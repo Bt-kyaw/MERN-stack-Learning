@@ -3,16 +3,25 @@
 <body>
     
     <%- include('./components/navbar') %>
+    
+    <div class="container">
 
-    <% if(blogs.length){ %>
-        <% blogs.forEach(blog => { %>
+        <% if(blogs.length){ %>
+            <% blogs.forEach(blog => { %>
+                
+                 <div class="blog-card">
+                    <h1><%= blog.title %></h1>
+                    <p> <%= blog.intro  %></p>
+                 </div>
+                 
+    
+             <% }) %>
+        <% } else { %>
+               <h1>There is no blogs.</h1>
+            <% } %>
 
-             <h1><%= blog.title %></h1>
-             <p> <%= blog.intro  %></p>
+    </div>
 
-         <% }) %>
-    <% } else { %>
-           <h1>There is no blogs.</h1>
-        <% } %>
+   
 </body>
 </html>
