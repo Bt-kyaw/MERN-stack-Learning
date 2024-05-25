@@ -13,21 +13,28 @@ app.get('/', (req,res) => {
         { title : 'Blog title 3', intro : 'This is blog intro3.'}
     ]
     res.render('home',{
-        blogs
+        blogs,
+        title : 'home'
     })
 })
 
 app.get('/about', (req,res) => {
-    res.render('about')
+    res.render('about',{
+        title : 'about'
+ } )
 })
 
 
 app.get('/contact', (req,res) => {
-    res.render('contact')
+    res.render('contact',{
+        title : 'contact'
+    })
 })
 
 app.use((req,res) => {
-    res.status(404).render('404')
+    res.status(404).render('404',{
+        title : '404 not found'
+    })
 })
 
 
