@@ -2,14 +2,12 @@ const express = require('express')
 const app = express()
 app.set('views', './views')
 app.set('view engine', 'ejs')
-let morgan = require('morgan')
 
-   app.use(morgan('dev'))
-   
-// app.use((req,res,next) => {
-//     console.log('1st middleware is running.');
-//     next()
-// })
+
+app.use((req,res,next) => {
+    console.log('1st middleware is running.');
+    next()
+})
 
 app.get('/', (req,res) => {
 
