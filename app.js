@@ -4,6 +4,10 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 
+app.use((req,res,next) => {
+    console.log('1st middleware is running.');
+    next()
+})
 
 app.get('/', (req,res) => {
 
@@ -24,6 +28,10 @@ app.get('/about', (req,res) => {
  } )
 })
 
+app.use((req,res,next) => {
+    console.log('2nd middleware is running.');
+    next()
+})
 
 app.get('/contact', (req,res) => {
     res.render('contact',{
