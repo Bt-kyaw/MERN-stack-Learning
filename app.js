@@ -5,6 +5,7 @@ app.set('view engine', 'ejs')
 let morgan = require('morgan')
 
 app.use(morgan('dev'))
+app.use(express.static('public'))
 
 app.get('/', (req,res) => {
 
