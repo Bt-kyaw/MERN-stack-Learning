@@ -2,7 +2,7 @@ const express = require('express')
 let morgan = require('morgan')
 const mongoose = require('mongoose')
 const Blog = require('./models/Blog')
-
+const expressLayouts = require('express-ejs-layouts');
 const app = express()
 //db url
 let mongoUrl ="mongodb+srv://bhonethantkyaw:810810@cluster0.pwyv0l2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -17,6 +17,8 @@ mongoose.connect(mongoUrl).then(()=>{
 
 app.set('views', './views')
 app.set('view engine', 'ejs')
+app.use(expressLayouts);
+app.set('layout', 'layouts/default');
 
 
 app.use(morgan('dev'))
@@ -63,9 +65,10 @@ app.get('/contact', (req,res) => {
     })
 })
 
-app.use((req,res,next) => {
-    console.log('2nd middleware is running.');
-    next()
+app.get('/blogs/create',(req,res) => {
+    res.render('blogs/create',{
+        title : 'Blog Create'
+    })
 })
 
 app.use((req,res) => {
