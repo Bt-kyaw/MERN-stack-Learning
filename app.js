@@ -1,6 +1,7 @@
 const express = require('express')
 let morgan = require('morgan')
 const mongoose = require('mongoose')
+const Blog = require('./models/Blog')
 
 const app = express()
 //db url
@@ -20,6 +21,16 @@ app.set('view engine', 'ejs')
 
 app.use(morgan('dev'))
 app.use(express.static('public'))
+
+app.get('/add-blog',async (req,res) => {
+    let blog = new Blog({
+        title : "blog title 2",
+        intro : "blog intro 2",
+        body : 'blog body 2 update'
+    })
+    await blog.save()
+    res.send('blog saved')
+})
 
 app.get('/', (req,res) => {
 
