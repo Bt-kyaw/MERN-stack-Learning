@@ -84,6 +84,19 @@ app.get('/blogs/create',(req,res) => {
     })
 })
 
+app.post('/blogs/:id/delete',async (req,res,next) => {
+    try {
+ 
+     let id = req.params.id;
+      await Blog.findByIdAndDelete(id);
+      res.redirect('/')
+    }
+     catch (e) {
+       console.log(e)
+       next()
+    }
+ })
+
 app.get('/blogs/:id',async (req,res,next) => {
    try {
 
