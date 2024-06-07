@@ -6,6 +6,7 @@ const expressLayouts = require('express-ejs-layouts');
 const app = express()
 
 app.use(express.urlencoded({extended: true}))
+
 //db url
 let mongoUrl ="mongodb+srv://bhonethantkyaw:810810@cluster0.pwyv0l2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongoose.connect(mongoUrl).then(()=>{
@@ -36,9 +37,14 @@ app.get('/add-blog',async (req,res) => {
     res.send('blog saved')
 })
 
-app.get('/single-blog',async (req,res) => {
-    let blog = await Blog.findById('665476e796a14a3dc2150466');
-    res.json(blog)
+app.get('/blogs/:id',async (req,res) => {
+    let id = req.params.id;
+    let blog = await Blog.findById(id);
+    
+    res.render('blogs/show',{
+        blog,
+        title : 'Blog detail'
+    })
 })
 
 app.get('/', async (req,res) => {
