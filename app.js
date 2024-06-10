@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const Blog = require('./models/Blog')
 const expressLayouts = require('express-ejs-layouts');
 const app = express()
+const blogRoutes = require('./routes/blogRoutes')
 
 app.use(express.urlencoded({extended: true}))
 
@@ -40,29 +41,10 @@ app.get('/add-blog',async (req,res) => {
 
 
 app.get('/', async (req,res) => {
-
-
-    let blogs = await Blog.find().sort({createdAt : -1})
-     console.log(blogs);
-
-    res.render('home',{
-        blogs,
-        title : 'home'
-    })
+   res.redirect('/blogs')
 })
 
-app.post('/blogs', async (req,res) => {
-    let {title,intro,body} = req.body;
-    let blog = new Blog({
-        title,
-        intro,
-        body 
-    })
-    await blog.save()
-    
-    res.redirect('/')
-    
-})
+
 
 app.get('/about', (req,res) => {
     res.render('about',{
@@ -70,49 +52,13 @@ app.get('/about', (req,res) => {
  } )
 })
 
-
-
 app.get('/contact', (req,res) => {
     res.render('contact',{
         title : 'contact'
     })
 })
 
-app.get('/blogs/create',(req,res) => {
-    res.render('blogs/create',{
-        title : 'Blog Create'
-    })
-})
-
-app.post('/blogs/:id/delete',async (req,res,next) => {
-    try {
- 
-     let id = req.params.id;
-      await Blog.findByIdAndDelete(id);
-      res.redirect('/')
-    }
-     catch (e) {
-       console.log(e)
-       next()
-    }
- })
-
-app.get('/blogs/:id',async (req,res,next) => {
-   try {
-
-    let id = req.params.id;
-    let blog = await Blog.findById(id);
-    
-    res.render('blogs/show',{
-        blog,
-        title : 'Blog detail'
-    })
-
-   } catch (e) {
-      console.log(e)
-      next()
-   }
-})
+app.use('/blogs',blogRoutes)
 
 app.use((req,res) => {
     res.status(404).render('404',{
